@@ -1,7 +1,7 @@
 /* ---------- CUSTOM MODALS ---------- */
 function showAlert(msg) {
   const modal = document.getElementById('custom-modal');
-  document.getElementById('modal-title').innerText = 'Life Pilot';
+  document.getElementById('modal-title').innerText = 'PureLife';
   const body = document.getElementById('modal-body');
   body.innerHTML = '';
   const paragraph = document.createElement('p');
@@ -12,7 +12,7 @@ function showAlert(msg) {
 }
 function showConfirm(msg, callback) {
   const modal = document.getElementById('custom-modal');
-  document.getElementById('modal-title').innerText = 'Life Pilot';
+  document.getElementById('modal-title').innerText = 'PureLife';
   document.getElementById('modal-body').innerHTML = `<p>${msg}</p>`;
   document.getElementById('modal-actions').innerHTML = `
     <button class="modal-btn cancel" onclick="closeModal()">Cancelar</button>
@@ -249,13 +249,13 @@ function buildWeekdays(){
   return days;
 }
 
-const SYNC_META_KEY = 'lifepilot-sync-meta';
+const SYNC_META_KEY = 'purelife-sync-meta';
 const ITEMIZED_DATA_KEYS = ['lumbar-plan-state', 'health-log', 'care-log', 'notes-log'];
 
 function loadState(k){ try{return JSON.parse(localStorage.getItem(k)||'{}');}catch(e){return {};} }
 function loadSyncMeta(){
   try {
-    return JSON.parse(localStorage.getItem(SYNC_META_KEY) || '{}');
+    return JSON.parse(localStorage.getItem(SYNC_META_KEY) || localStorage.getItem('lifepilot-sync-meta') || '{}');
   } catch(e) {
     return {};
   }
@@ -289,7 +289,7 @@ function markStateChanged(key, previousState, nextState){
   meta.changeVersion = (meta.changeVersion || 0) + 1;
   meta.dirty = true;
   storeSyncMeta(meta);
-  window.dispatchEvent(new CustomEvent('lifepilot:data-changed', { detail: { key } }));
+  window.dispatchEvent(new CustomEvent('purelife:data-changed', { detail: { key } }));
 }
 function saveState(k,state,options={}){
   try {
@@ -796,9 +796,9 @@ renderEstadisticas();
 /* ---------- DROPBOX SYNC ---------- */
 const CLIENT_ID = 'tn0qzpzapx2b1mw';
 const DROPBOX_FILE = '/plan_lumbar_datos.json';
-const DROPBOX_SESSION_KEY = 'lifepilot-dropbox-session';
-const DROPBOX_PKCE_KEY = 'lifepilot-dropbox-pkce';
-const DROPBOX_AUTO_ATTEMPT_KEY = 'lifepilot-dropbox-auto-attempt';
+const DROPBOX_SESSION_KEY = 'purelife-dropbox-session';
+const DROPBOX_PKCE_KEY = 'purelife-dropbox-pkce';
+const DROPBOX_AUTO_ATTEMPT_KEY = 'purelife-dropbox-auto-attempt';
 const DROPBOX_AUTO_RETRY_DELAY = 120000;
 const AUTO_SYNC_DELAY = 3000;
 let dbx = null;
@@ -886,7 +886,7 @@ function makeSyncBundle() {
   DATA_KEYS.forEach(key => { data[key] = loadState(key); });
   return {
     schemaVersion: 2,
-    app: 'Life Pilot',
+    app: 'PureLife',
     updatedAt: meta.updatedAt || new Date().toISOString(),
     deviceId: meta.deviceId,
     changeVersion: meta.changeVersion || 0,
@@ -1125,7 +1125,7 @@ function cleanOAuthParams() {
 
 async function connectDropbox({ automatic=false }={}) {
   if(window.location.protocol === 'file:') {
-    if(!automatic) showAlert('Abre Life Pilot mediante http://localhost o desde Vercel para conectar Dropbox.');
+    if(!automatic) showAlert('Abre PureLife mediante http://localhost o desde Vercel para conectar Dropbox.');
     return;
   }
   setSyncStatus('connecting', automatic ? 'Conectando automáticamente…' : 'Abriendo Dropbox…');
@@ -1227,7 +1227,7 @@ ensureSyncMetadata();
 document.getElementById('dbx-login-btn').addEventListener('click', () => connectDropbox());
 document.getElementById('dbx-load-btn').addEventListener('click', () => syncNow({ notify: true }));
 document.getElementById('dbx-save-btn').addEventListener('click', () => syncNow({ notify: true, uploadOnly: true }));
-window.addEventListener('lifepilot:data-changed', () => scheduleAutoSync());
+window.addEventListener('purelife:data-changed', () => scheduleAutoSync());
 window.addEventListener('online', () => {
   if(dbx) scheduleAutoSync(250);
   else tryAutomaticDropboxConnection();

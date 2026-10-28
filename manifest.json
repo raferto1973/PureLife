@@ -1,6 +1,6 @@
 {
-  "name": "Life Pilot",
-  "short_name": "Life Pilot",
+  "name": "PureLife",
+  "short_name": "PureLife",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f4f3ef",

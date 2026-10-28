@@ -1,6 +1,6 @@
-# Life Pilot
+# PureLife
 
-Life Pilot es una aplicación web progresiva (PWA) para seguir un plan personal de recuperación L5-S1/S1, actividad física, alimentación, constantes de salud y hábitos diarios. Funciona en navegador, se puede instalar y conserva los datos en el dispositivo mediante `localStorage`.
+PureLife es una aplicación web progresiva (PWA) para seguir un plan personal de recuperación L5-S1/S1, actividad física, alimentación, constantes de salud y hábitos diarios. Funciona en navegador, se puede instalar y conserva los datos en el dispositivo mediante `localStorage`.
 
 > El contenido sanitario de la aplicación es orientativo y no sustituye una exploración ni una indicación profesional. La debilidad progresiva, alteraciones de esfínteres, anestesia perineal o síntomas importantes en ambas piernas requieren atención urgente.
 
@@ -72,7 +72,7 @@ La alimentación usa un ciclo de 15 días con una sola receta compartida y racio
 Requiere Python 3 disponible en el `PATH`.
 
 ```powershell
-cd "C:\Users\rafer\OneDrive\Escritorio\LIFEPILOT2"
+cd "C:\Users\rafer\OneDrive\Escritorio\PureLife"
 python -m http.server 8000
 ```
 

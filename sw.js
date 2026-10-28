@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lifepilot-v13-accessibility';
+const CACHE_NAME = 'purelife-v14';
 const urlsToCache = [
   './index.html',
   './style.css',
